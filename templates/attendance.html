@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Attendance</title>
+</head>
+
+<body>
+    <div style="background:#1e1e2f;padding:15px;">
+
+    <a href="/" style="color:white;margin-right:20px;">
+        Home
+    </a>
+
+    <a href="/dashboard" style="color:white;margin-right:20px;">
+        Dashboard
+    </a>
+
+    <a href="/add-student" style="color:white;margin-right:20px;">
+        Add Student
+    </a>
+
+    <a href="/students" style="color:white;margin-right:20px;">
+        Students
+    </a>
+
+    <a href="/attendance" style="color:white;">
+        Attendance
+    </a>
+
+</div>
+
+<h1>Mark Attendance</h1>
+
+<form method="POST">
+
+    <select name="student_id">
+
+        {% for student in students %}
+
+        <option value="{{ student[0] }}">
+            {{ student[1] }} ({{ student[2] }})
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <select name="status">
+
+        <option value="Present">
+            Present
+        </option>
+
+        <option value="Absent">
+            Absent
+        </option>
+
+    </select>
+
+    <button type="submit">
+        Save Attendance
+    </button>
+
+</form>
+
+</body>
+</html>

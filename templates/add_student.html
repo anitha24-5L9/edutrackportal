@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Student</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+    <div style="background:#1e1e2f;padding:15px;">
+
+    <a href="/" style="color:white;margin-right:20px;">
+        Home
+    </a>
+
+    <a href="/dashboard" style="color:white;margin-right:20px;">
+        Dashboard
+    </a>
+
+    <a href="/add-student" style="color:white;margin-right:20px;">
+        Add Student
+    </a>
+
+    <a href="/students" style="color:white;margin-right:20px;">
+        Students
+    </a>
+
+    <a href="/attendance" style="color:white;">
+        Attendance
+    </a>
+
+</div>
+
+    <div class="container">
+
+        <h1>Add Student</h1>
+        <form action="/save-student" method="POST" enctype="multipart/form-data">
+
+    <input type="text" name="name" placeholder="Name" required>
+
+    <input type="text" name="rollno" placeholder="Roll No" required>
+
+    <input type="text" name="branch" placeholder="Branch" required>
+
+    <input type="email"
+           name="email"
+           placeholder="Email Address"
+           required>
+
+    <input type="text"
+           name="phone"
+           placeholder="Phone Number"
+           required>
+
+    <input type="number" name="marks" placeholder="Marks" required>
+    <input type="password"
+       name="password"
+       placeholder="Password"
+       required>
+
+    <input type="file" name="photo" required>
+    
+
+
+    <button type="submit">Save Student</button>
+
+</form>
+
+        
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Profile</title>
+</head>
+
+<body>
+
+<h1>Student Profile 👤</h1>
+
+<img src="{{ url_for('static', filename=student[8]) }}"
+     width="150">
+
+<h3>Name: {{ student[1] }}</h3>
+<h3>Roll No: {{ student[2] }}</h3>
+<h3>Branch: {{ student[3] }}</h3>
+<h3>Email: {{ student[4] }}</h3>
+<h3>Phone: {{ student[5] }}</h3>
+<h3>Marks: {{ student[7] }}</h3>
+
+</body>
+
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+    width: 220px;
+    background: #1e1e2f;
+    color: white;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 8px 0;
+            background: #2e2e44;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: #44446a;
+        }
+
+        /* MAIN */
+
+        .main {
+    margin-left: 260px;
+    padding: 30px;
+    background: #f4f4f4;
+    min-height: 100vh;
+}
+        .main h1 {
+            margin-bottom: 25px;
+        }
+
+        /* CARDS */
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            flex: 1;
+            min-width: 200px;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .card h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .card h1 {
+            margin-top: 10px;
+            color: #007bff;
+        }
+
+        /* TOPPER */
+
+        .topper {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+        }
+
+        .topper h2 {
+            margin: 0 0 10px 0;
+        }
+
+        .topper h1 {
+            color: #28a745;
+            margin: 0;
+        }
+
+        /* LOGOUT */
+
+        .logout {
+            margin-top: 30px;
+            display: inline-block;
+            background: red;
+            color: white;
+            padding: 12px 18px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .logout:hover {
+            background: darkred;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+    <h2>EduTrack 🚀</h2>
+
+    <a href="/">🏠 Home</a>
+
+    <a href="/dashboard">📊 Dashboard</a>
+
+    <a href="/add-student">➕ Add Student</a>
+
+    <a href="/students">📚 View Students</a>
+
+    <a href="/attendance">📝 Attendance</a>
+
+    <a href="/logout">🚪 Logout</a>
+
+</div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main">
+
+        <h1>Welcome Admin 👋</h1>
+
+        
+<br><br>
+
+        <!-- DASHBOARD CARDS -->
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Total Students</h3>
+                <h1>{{ total_students }}</h1>
+            </div>
+
+            <div class="card">
+                <h3>Highest Marks</h3>
+                <h1>{{ highest_marks }}</h1>
+            </div>
+
+            <div class="card">
+                <h3>Average Marks</h3>
+                <h1>{{ average_marks }}</h1>
+            </div>
+
+            <div class="card">
+                <h3>Attendance %</h3>
+                <h1>{{ attendance_percentage }}%</h1>
+            </div>
+
+        </div>
+
+        <!-- TOPPER -->
+
+        <div class="topper">
+
+            <h2>Topper Student 🏆</h2>
+
+            <h1>{{ topper }}</h1>
+
+        </div>
+        <div class="topper">
+
+    <h2>Branch-wise Student Distribution 📚</h2>
+
+    <div style="
+        width: 450px;
+        height: 300px;
+        margin: auto;
+    ">
+        <canvas id="branchChart"></canvas>
+    </div>
+
+</div>
+<div class="topper">
+
+    <h2>Top 5 Students 🏆</h2>
+
+    <div style="
+        width: 600px;
+        height: 300px;
+        margin: auto;
+    ">
+        <canvas id="topStudentsChart"></canvas>
+    </div>
+
+</div>
+
+        <!-- CHART -->
+
+        <div class="topper">
+
+    <h2>Marks Analysis 📊</h2>
+
+    <div style="
+        width: 600px;
+        height: 300px;
+        margin: auto;
+    ">
+        <canvas id="marksChart"></canvas>
+    </div>
+
+</div>
+
+        <!-- LOGOUT -->
+
+        <a class="logout" href="/logout">
+            Logout
+        </a>
+
+    </div>
+
+
+    
+    <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    var total = Number("{{ total_students }}") || 0;
+    var highest = Number("{{ highest_marks }}") || 0;
+    var average = Number("{{ average_marks }}") || 0;
+
+    // MARKS CHART
+
+    var ctx = document.getElementById('marksChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [
+                "Total Students",
+                "Highest Marks",
+                "Average Marks"
+            ],
+            datasets: [{
+                label: 'Student Analytics',
+                data: [
+                    total,
+                    highest,
+                    average
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+    // BRANCH CHART
+
+    var branchCtx =
+        document.getElementById('branchChart');
+
+    new Chart(branchCtx, {
+        type: 'pie',
+        data: {
+            labels: {{ branch_labels | tojson }},
+            datasets: [{
+                data: {{ branch_counts | tojson }}
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+    // TOP 5 STUDENTS
+
+    var topCtx =
+        document.getElementById('topStudentsChart');
+
+    new Chart(topCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ top_names | tojson }},
+            datasets: [{
+                label: 'Marks',
+                data: {{ top_marks | tojson }}
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+});
+
+
+</script>
+</body>
+</html>

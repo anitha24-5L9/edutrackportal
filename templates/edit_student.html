@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Edit Student</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div style="background:#1e1e2f;padding:15px;">
+
+    <a href="/" style="color:white;margin-right:20px;">
+        Home
+    </a>
+
+    <a href="/dashboard" style="color:white;margin-right:20px;">
+        Dashboard
+    </a>
+
+    <a href="/add-student" style="color:white;margin-right:20px;">
+        Add Student
+    </a>
+
+    <a href="/students" style="color:white;margin-right:20px;">
+        Students
+    </a>
+
+    <a href="/attendance" style="color:white;">
+        Attendance
+    </a>
+
+</div>
+    <div class="container">
+
+        <h1>Edit Student ✏️</h1>
+
+        <form action="/update-student/{{ student[0] }}" method="POST">
+
+            <input type="text"
+                   name="name"
+                   value="{{ student[1] }}"
+                   required>
+
+            <input type="text"
+                   name="rollno"
+                   value="{{ student[2] }}"
+                   required>
+
+            <input type="text"
+                   name="branch"
+                   value="{{ student[3] }}"
+                   required>
+
+            <input type="number"
+                   name="marks"
+                   value="{{ student[4] }}"
+                   required>
+
+            <button type="submit">Update Student</button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
