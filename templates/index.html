@@ -5,37 +5,123 @@
 
     <title>EduTrack Portal</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background:#ffe6f0;
+            margin:0;
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .college-name{
+            text-align:center;
+            font-size:28px;
+            font-weight:bold;
+            color:#1e1e2f;
+            padding:25px 10px;
+        }
+
+        .main-container{
+            flex:1;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .container{
+            background:white;
+            padding:40px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 0 15px rgba(0,0,0,0.15);
+            width:500px;
+        }
+
+        h1{
+            color:#1e1e2f;
+            margin-bottom:10px;
+        }
+
+        .description{
+            color:gray;
+            margin-bottom:30px;
+        }
+
+        .btn{
+            display:block;
+            width:100%;
+            padding:15px;
+            margin:15px 0;
+            text-decoration:none;
+            color:white;
+            border-radius:8px;
+            font-size:18px;
+            font-weight:bold;
+            box-sizing:border-box;
+        }
+
+        .admin{
+            background:#007bff;
+        }
+
+        .student{
+            background:#28a745;
+        }
+
+        .admin:hover{
+            background:#0056b3;
+        }
+
+        .student:hover{
+            background:#1f7a33;
+        }
+
+        .footer{
+            text-align:center;
+            padding:15px;
+            font-size:14px;
+            color:#444;
+            background:#ffd6e7;
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-    <h1>Welcome to EduTrack Portal 🚀</h1>
+    <div class="college-name">
+        BONAM VENKATA CHALAMMAYA ENGINEERING COLLEGE, ODALAREVU
+    </div>
 
-    <p>Advanced Student Management System</p>
+    <div class="main-container">
 
-    <a href="/add-student">
-        <button>Add Student</button>
-    </a>
+        <div class="container">
 
-    <br><br>
+            <h1>🎓 EduTrack Portal</h1>
 
-    <a href="/students">
-        <button>View Students</button>
-    </a>
+            <p class="description">
+                
+            </p>
 
-    <br><br>
+            <a href="/login-page" class="btn admin">
+                🔐 Admin Login
+            </a>
 
-    <a href="/dashboard">
-        <button>Dashboard</button>
-    </a>
-    <br><br>
+            <a href="/student-login" class="btn student">
+                👨‍🎓 Student Login
+            </a>
 
-<a href="/student-login">
-    <button>Student Login</button>
-</a>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        © 2026 EduTrack Portal | Developed by Anitha Mandapati
+    </div>
 
 </body>
 

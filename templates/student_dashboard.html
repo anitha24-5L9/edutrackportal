@@ -7,19 +7,42 @@
 
 <body>
 
-<h1>Welcome {{ student[1] }}</h1>
+    <h1>Welcome {{ student[1] }} 👋</h1>
 
-<p>Roll No: {{ student[2] }}</p>
-<p>Branch: {{ student[3] }}</p>
-<p>Email: {{ student[4] }}</p>
-<p>Phone: {{ student[5] }}</p>
-<p>Marks: {{ student[7] }}</p>
-<br>
+    <hr>
 
+    <p><b>Roll No:</b> {{ student[2] }}</p>
 
-<img src="{{ url_for('static',
-filename=student[8]) }}"
-width="150">
+    <p><b>Branch:</b> {{ student[3] }}</p>
+
+    <p><b>Email:</b> {{ student[4] }}</p>
+
+    <p><b>Phone:</b> {{ student[5] }}</p>
+
+    <p><b>Marks:</b> {{ student[7] }}</p>
+
+    <br>
+
+    <img
+        src="{{ url_for('static', filename=student[8]) }}"
+        width="150">
+
+    <br><br>
+
+    <a href="/change-password">
+        <button>
+            Change Password 🔐
+        </button>
+    </a>
+
+    <br><br>
+
+    <a href="/student-logout">
+        <button>
+            Logout 🚪
+        </button>
+    </a>
 
 </body>
+
 </html>

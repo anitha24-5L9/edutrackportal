@@ -357,6 +357,66 @@ def student_dashboard():
         student=student
     )
 
+@app.route('/student-logout')
+def student_logout():
+
+    session.pop('student', None)
+
+    return redirect('/student-login')
+
+@app.route('/change-password')
+def change_password():
+
+    if 'student' not in session:
+        return redirect('/student-login')
+
+    return render_template('change_password.html')
+
+
+@app.route('/update-password', methods=['POST'])
+def update_password():
+
+    if 'student' not in session:
+        return redirect('/student-login')
+
+    current_password = request.form['current_password']
+    new_password = request.form['new_password']
+
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT password FROM students WHERE id=?",
+        (session['student'],)
+    )
+
+    stored_password = cursor.fetchone()[0]
+
+    if not check_password_hash(
+        stored_password,
+        current_password
+    ):
+        conn.close()
+        return "Current Password Incorrect ❌"
+
+    hashed_password = generate_password_hash(
+        new_password
+    )
+
+    cursor.execute(
+        """
+        UPDATE students
+        SET password=?
+        WHERE id=?
+        """,
+        (hashed_password, session['student'])
+    )
+
+    conn.commit()
+    conn.close()
+
+    return "Password Changed Successfully ✅"
+
 @app.route('/attendance', methods=['GET', 'POST'])
 def attendance():
 
@@ -395,6 +455,35 @@ def attendance():
     return render_template(
         'attendance.html',
         students=students
+    )
+@app.route('/attendance-history')
+def attendance_history():
+
+    if 'user' not in session:
+        return redirect('/login-page')
+
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT
+        attendance.date,
+        students.name,
+        students.rollno,
+        attendance.status
+    FROM attendance
+    JOIN students
+    ON attendance.student_id = students.id
+    ORDER BY attendance.date DESC
+    """)
+
+    records = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        'attendance_history.html',
+        records=records
     )
 
 
