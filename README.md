@@ -29,7 +29,7 @@ EduTrack Portal is a Student Management System built using Flask and SQLite.
 
 ## GitHub Repository
 
-📂 https://github.com/anitha24-5L9/edutrack-portal
+📂 https://github.com/anitha24-5L9/edutrackportal
 
 ## Author
 
